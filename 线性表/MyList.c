@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <malloc.h>
+#include<stdbool.h>
 
 #define TRUE 1
 #define FALSE 0
@@ -8,6 +9,8 @@
 #define ERROR 0
 #define INFEASIBLE -1
 #define OVERFLOW -2
+
+
 
 #define LIST_INIT_SIZE 100  //线性表存储空间的初始分配量 
 #define LISTINCREMENT 10  //线性表存储空间的分配增量 
@@ -25,6 +28,18 @@ typedef struct{
 Status InitList(MyList *L);
 Status ListInsert(MyList *L,int i,int e);
 Status ListDelete(MyList *L,int i,int *e);
+Status compare(int a,int b);
+int LocateElem(MyList L,int e,Status (* compare)(int,int));
+void MergeList(MyList La,MyList Lb,MyList *Lc);
+Status DestoryList(MyList *L);
+Status ClearList(MyList *L);
+bool ListEmpty(MyList L);
+int ListLength(MyList L);
+Status GetItem(MyList L,int i,int *e);
+Status PriorElem(MyList L,int cur_e,int *pre_e);
+Status NextElem(MyList L,int cur_e,int *next_e);
+
+
 
 int main(int argc, char *argv[]) {
 	MyList L;
