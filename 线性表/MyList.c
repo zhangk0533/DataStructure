@@ -29,7 +29,7 @@ Status InitList(MyList *L);
 Status ListInsert(MyList *L,int i,int e);
 Status ListDelete(MyList *L,int i,int *e);
 Status compare(int a,int b);
-int LocateElem(MyList L,int e,Status (* compare)(int,int));
+int LocateElem(MyList L,int e);
 void MergeList(MyList La,MyList Lb,MyList *Lc);
 Status DestoryList(MyList *L);
 Status ClearList(MyList *L);
@@ -45,48 +45,87 @@ int main(int argc, char *argv[]) {
 	MyList L;
 	InitList(&L);
 	int i=0;
-	ListInsert(&L,0,1);
-	ListInsert(&L,1,2);
+	ListInsert(&L,1,1);
+	ListInsert(&L,2,2);
+	//printf("%d",*(L.elem+1));
+	printf("%d",*L.elem);
 	printf("%d",*(L.elem+1));
+	int j = LocateElem(L,2);
+	printf("%d",j);
 	return 0;
 }
 
 Status InitList(MyList *L)
 {
 	L->elem = (int *)(malloc(sizeof(int)*LIST_INIT_SIZE));
-	if(L->elem==NULL) return ERROR;
+	if(L->elem==NULL) return OVERFLOW;
 	L->length = 0;
 	L->listsize = LIST_INIT_SIZE;
+	return OK;
 }
 
 Status ListInsert(MyList *L,int i,int e)
 {
-	if(i<0||i>L->length+1) return ERROR;
-	if(L->length==LIST_INIT_SIZE)
+	if(i<1||i>L->length+1) return ERROR;
+	if(L->length>=L->listsize)
 	{
 		int *newbase = (int *)(realloc(L->elem,sizeof(int)*(LIST_INIT_SIZE+LISTINCREMENT)));
 		L->elem = newbase;
+		L->listsize += LISTINCREMENT;
 	}
 	int *q;
-	int *p = L->elem+i;
-	for(q=L->elem+L->length;q>=p;q--)
+	int *p = L->elem+i -1;
+	for(q=L->elem+L->length-1;q>=p;q--)
 	{
 		*(q+1) = *q;
 	}
 	*p = e;
+	++L->length; 
 	return OK;
 }
 
 Status ListDelete(MyList *L,int i,int *e)
 {
-	if(i<0||i>L->length+1) return ERROR;
+	if(i<1||i>L->length) return ERROR;
 	int *q = L->elem+i;
 	*e = *q;
 	for(++q;q<L->elem+L->length;q++)
 	{
 		*q = *(q+1);
 	}
+	--L->length;
 	return OK;
 }
+
+Status compare(int a,int b)
+{
+ 	if(a==b)
+	{
+		return OK;
+	}
+	else
+	{
+		return ERROR;
+	}
+}
+
+int LocateElem(MyList L,int e)
+{
+	int *p = L.elem; 
+	int i = 1;
+	while(i<=L.length&&!compare(e,*p++))
+	{
+		++i;
+	}
+	if(i<=L.length)
+	{
+		return i;
+	}
+	else
+	{
+		return 0;
+	}
+}
+ 
 
 
