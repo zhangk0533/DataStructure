@@ -126,6 +126,64 @@ int LocateElem(MyList L,int e)
 		return 0;
 	}
 }
- 
+
+void MergeList(MyList La,MyList Lb,MyList *Lc)
+{
+	
+	
+} 
+
+Status DestoryList(MyList *L)
+{
+	L->length = 0;
+	L->listsize = 0;
+	free(L->elem);
+	L->elem = NULL;
+	return OK;
+}
+
+Status ClearList(MyList *L)
+{
+	L->length = 0;
+	return OK;
+}
+
+bool ListEmpty(MyList L)
+{
+	if(L.length==0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}	
+}
+
+int ListLength(MyList L)
+{
+	return L.length;
+}
+
+Status GetItem(MyList L,int i,int *e)
+{
+	if(i>L.length)
+	{
+		return OVERFLOW;
+	}
+	*e = *(L.elem+i-1);
+	return OK;
+}
+
+Status PriorElem(MyList L,int cur_e,int *pre_e)
+{
+	//if()
+}
+
+
+
+
+
+
 
 
