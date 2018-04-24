@@ -1,0 +1,159 @@
+func! CompileGcc()
+    exec "w"
+    let compilecmd="!gcc "
+    let compileflag="-o %< "
+    if search("mpi\.h") != 0
+        let compilecmd = "!mpicc "
+    endif
+    if search("glut\.h") != 0
+        let compileflag .= " -lglut -lGLU -lGL "
+    endif
+    if search("cv\.h") != 0
+        let compileflag .= " -lcv -lhighgui -lcvaux "
+    endif
+    if search("omp\.h") != 0
+        let compileflag .= " -fopenmp "
+    endif
+    if search("math\.h") != 0
+        let compileflag .= " -lm "
+    endif
+    exec compilecmd." % ".compileflag
+endfunc
+func! CompileGpp()
+    exec "w"
+    let compilecmd="!g++ "
+    let compileflag="-o %< "
+    if search("mpi\.h") != 0
+        let compilecmd = "!mpic++ "
+    endif
+    if search("glut\.h") != 0
+        let compileflag .= " -lglut -lGLU -lGL "
+    endif
+    if search("cv\.h") != 0
+        let compileflag .= " -lcv -lhighgui -lcvaux "
+    endif
+    if search("omp\.h") != 0
+        let compileflag .= " -fopenmp "
+    endif
+    if search("math\.h") != 0
+        let compileflag .= " -lm "
+    endif
+    exec compilecmd." % ".compileflag
+endfunc
+
+func! RunPython()
+        exec "!python %"
+endfunc
+func! CompileJava()
+    exec "!javac %"
+endfunc
+
+
+func! CompileCode()
+        exec "w"
+        if &filetype == "cpp"
+                exec "call CompileGpp()"
+        elseif &filetype == "c"
+                exec "call CompileGcc()"
+        elseif &filetype == "python"
+                exec "call RunPython()"
+        elseif &filetype == "java"
+                exec "call CompileJava()"
+        endif
+endfunc
+
+func! RunResult()
+        exec "w"
+        if search("mpi\.h") != 0
+            exec "!mpirun -np 4 ./%<"
+        elseif &filetype == "cpp"
+            exec "! ./%<"
+        elseif &filetype == "c"
+            exec "! ./%<"
+        elseif &filetype == "python"
+            exec "call RunPython"
+        elseif &filetype == "java"
+            exec "!java %<"
+        endif
+endfunc
+
+func SetTitle()   
+  
+    "如果文件类型为.sh文件   
+  
+    if &filetype == 'sh'   
+  
+        call setline(1,"\#########################################################################")   
+  
+        call append(line("."), "\# File Name: ".expand("%"))   
+  
+        call append(line(".")+1, "\# Author: ma6174")   
+  
+        call append(line(".")+2, "\# mail: ma6174@163.com")   
+  
+        call append(line(".")+3, "\# Created Time: ".strftime("%c"))   
+  
+        call append(line(".")+4, "\#########################################################################")   
+  
+        call append(line(".")+5, "\#!/bin/bash")   
+  
+        call append(line(".")+6, "")   
+  
+    else   
+  
+        call setline(1, "/*************************************************************************")   
+  
+        call append(line("."), "    > File Name: ".expand("%"))   
+  
+        call append(line(".")+1, "    > Author: ma6174")   
+  
+        call append(line(".")+2, "    > Mail: ma6174@163.com ")   
+  
+        call append(line(".")+3, "    > Created Time: ".strftime("%c"))   
+  
+        call append(line(".")+4, " ************************************************************************/")   
+  
+        call append(line(".")+5, "")  
+  
+    endif  
+  
+    if &filetype == 'cpp'  
+  
+        call append(line(".")+6, "#include<iostream>")  
+  
+        call append(line(".")+7, "using namespace std;")  
+  
+        call append(line(".")+8, "")  
+  
+    endif  
+  
+    if &filetype == 'c'  
+  
+        call append(line(".")+6, "#include<stdio.h>")  
+  
+        call append(line(".")+7, "")  
+  
+    endif  
+  
+    "新建文件后，自动定位到文件末尾  
+  
+    autocmd BufNewFile * normal G  
+  
+endfunc
+
+func! Rungdb()  
+  
+    exec "w"  
+  
+    exec "!g++ % -g -o %<"  
+  
+    exec "!gdb ./%<"  
+  
+endfunc  
+
+map <F5> :call CompileCode()<CR>
+imap <F5> <ESC>:call CompileCode()<CR>
+vmap <F5> <ESC>:call CompileCode()<CR>
+
+map <F6> :call RunResult()<CR>
+
