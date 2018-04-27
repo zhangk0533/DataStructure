@@ -26,3 +26,18 @@ void MergeList(LinkList *La,LinkList *Lb,LinkList *Lc);
 int main(int argc, char *argv[]) {
 	return 0;
 }
+
+Status GetElem(LinkList L,int i,int *e)
+{
+	
+//	int j = 1;
+//	while(j<i)	
+//	{
+//		L->next
+//	}
+}
+
+Status ListInsert(LinkList *L,int i,int e)
+{
+	
+}

@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <malloc.h>
-#include<stdbool.h>
 
 #define TRUE 1
 #define FALSE 0
@@ -130,6 +129,8 @@ int LocateElem(MyList L,int e)
 void MergeList(MyList La,MyList Lb,MyList *Lc)
 {
 	
+	La.elem;
+	return ERROR; 
 	
 } 
 

@@ -19,12 +19,13 @@ func! CompileGcc()
     endif
     exec compilecmd." % ".compileflag
 endfunc
+
 func! CompileGpp()
-    exec "w"
-    let compilecmd="!g++ "
-    let compileflag="-o %< "
-    if search("mpi\.h") != 0
-        let compilecmd = "!mpic++ "
+exec "w"
+let compilecmd="!g++ "
+let compileflag="-o %< "
+if search("mpi\.h") != 0
+let compilecmd = "!mpic++ "
     endif
     if search("glut\.h") != 0
         let compileflag .= " -lglut -lGLU -lGL "
@@ -140,16 +141,6 @@ func SetTitle()
     autocmd BufNewFile * normal G  
   
 endfunc
-
-func! Rungdb()  
-  
-    exec "w"  
-  
-    exec "!g++ % -g -o %<"  
-  
-    exec "!gdb ./%<"  
-  
-endfunc  
 
 map <F5> :call CompileCode()<CR>
 imap <F5> <ESC>:call CompileCode()<CR>
