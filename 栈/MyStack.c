@@ -1,6 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define TRUE 1
+#define FALSE 0
+#define OK 1
+#define ERROR 0
+#define INFEASIBLE -1
+#define OVERFLOW -2
+
 #define STACK_INIT_SIZE 100  //存储空间初始分配量
 #define STACKINCREMENT 10  //存储空间分配增量 
 
@@ -27,4 +34,29 @@ Status Pop(MyStack *S,int e);
 
 int main(int argc, char *argv[]) {
 	return 0;
+}
+
+Status InitStack(MyStack *S)
+{
+	S->base = malloc(sizeof(int)*STACK_INIT_SIZE);
+	if(S->base==NULL)
+	{
+		return OVERFLOW;
+	}
+	S->top = S->base;
+	return OK;
+}
+
+Status DestoryStack(MyStack *S)
+{
+	free(S->base);
+	S->base = NULL;
+	S->top = NULL;
+}
+
+Status ClearStack(MyStack *S)
+{
+	S->stacksize = 0;
+	S->top = S->base;
+	return OK;
 }
