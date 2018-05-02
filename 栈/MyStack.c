@@ -28,6 +28,8 @@ Status GetTop(MyStack S,int *e);
 Status Push(MyStack *S,int e);
 Status Pop(MyStack *S,int *e);
 void TraverStack(MyStack S);
+void Conversion(MyStack S,int n);
+void LineEdit();
 //Status StackTraverse(MyStack S,)
 
 
@@ -36,12 +38,13 @@ void TraverStack(MyStack S);
 int main(int argc, char *argv[]) {
 	MyStack S;
 	
-	int e = 0;
+	//int e = 0;
 	InitStack(&S);
-	Push(&S,1);
-	Push(&S,2);
-	Pop(&S,&e);
-	TraverStack(S);
+	//Push(&S,1);
+	//Push(&S,2);
+	//Pop(&S,&e);
+	//TraverStack(S);
+	Conversion(S,11 );
 	
 	return 0;
 }
@@ -133,8 +136,43 @@ void TraverStack(MyStack S)
 	}
 }
 
+void Conversion(MyStack S,int n)
+{
+	while(n)
+	{
+		int e = n%8;
+		Push(&S,e);
+		n = n/8;
+	}
+	while(!StackEmpty(S))
+	{
+		int e;
+		Pop(&S,&e);
+		printf("%d",e);
+	}
+}
 
-
+//void LineEdit()
+//{
+//	MyStack S;
+//	InitStack(MyStack *S);
+//	char ch = getchar();
+//	while(ch!=EOF)
+//	{
+//		while(ch!='\n'&&ch!=EOF)
+//		{
+//			int e;
+//			switch(ch)
+//			{
+//				case '#':Pop(&S,&e);
+//				break;
+//				case '@':ClearStack(&S);
+//				break; 
+//				default:Push(&S,)
+//			}
+//		}
+//	}
+//}
 
 
 
