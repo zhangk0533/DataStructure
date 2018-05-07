@@ -88,25 +88,7 @@ int main(int argc, char *argv[]) {
 	end.x = 8;
 	end.y = 8;
 	MazePath(maze,start,end);
-	for(i=0;i<MazeScale;i++)
-	{
-		for(j=0;j<MazeScale;j++)
-		{
-			if(maze[i][j]==2)
-			{
-				printf("#");
-			}
-			else if(maze[i][j]==1)
-			{
-				printf(".");
-			}
-			else
-			{
-				printf(" ");
-			}
-		}
-		printf("\n");
-	}
+
 	return 0;
 }
 
