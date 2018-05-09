@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 [Editors]
 Order=0
 Focused=0
@@ -6,3 +7,13 @@ CursorCol=1
 CursorRow=91
 TopLine=80
 LeftChar=1
+=======
+[Editors]
+Order=
+Focused=0
+[Editor_0]
+CursorCol=5
+CursorRow=104
+TopLine=63
+LeftChar=1
+>>>>>>> Stashed changes
