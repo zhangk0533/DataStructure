@@ -38,33 +38,89 @@ int main(int argc, char *argv[]) {
 
 Status InitQueue(LinkQueue *Q)
 {
-	
+	Q->front = Q->real = (QNode *)malloc(sizeof(QNode));
+	Q->front->next = NULL;
+	return OK;
 }
+
 Status DestoryQueue(LinkQueue *Q)
 {
 	
+	
 }
+
 Status ClearQueue(LinkQueue *Q)
 {
-	
+	Q->real = Q->front;
+	return OK;
 }
+
 Status QueueEmpty(LinkQueue Q)
 {
+	if(Q.real==Q.front)
+	{
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
 	
 }
+
 int QueueLength(LinkQueue Q)
 {
-	
+	return Q.real-Q.front;
 }
+
 Status GetHead(LinkQueue Q,int *e)
 {
-	
+	if(!QueueEmpty(Q))
+	{
+		(*e) = Q.front->data;
+		return OK;
+	}
+	return ERROR;
 }
+
 Status EnQueue(LinkQueue *Q,int e)
 {
-	
+	QueuePtr elem = (QueuePtr)(malloc(sizeof(QNode)));
+	if(elem==NULL)
+	{
+		exit(OVERFLOW);
+	}
+	elem->data = e;
+	elem->next = NULL;
+	Q->real->next = elem;
+	Q->real = elem;
+	return OK;
 }
+
 Status DeQueue(LinkQueue *Q,int *e)
 {
-	
+	QueuePtr head = Q->front->next;
+	(*e) = head->data;
+	Q->front->next = head->next;
+	if(Q->real==head)
+	{
+		Q->front=Q->real;
+	}
+	return OK; 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
