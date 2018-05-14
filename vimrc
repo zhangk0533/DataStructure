@@ -225,7 +225,7 @@ func! RunResult()
 	elseif &filetype == "cpp"
 		exec "! ./%<"
 	elseif &filetype == "c"
-		exec "! ./%<"
+		exec "! %<"
 	elseif &filetype == "python"
 		exec "call RunPython"
 	elseif &filetype == "java"

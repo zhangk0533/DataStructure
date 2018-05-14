@@ -31,7 +31,8 @@ Status DeQueue(LinkQueue *Q,int *e);
 
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
-int main(int argc, char *argv[]) {
+int main(void) {
+	printf("%d",1);
 	return 0;
 }
 
@@ -45,8 +46,13 @@ Status InitQueue(LinkQueue *Q)
 
 Status DestoryQueue(LinkQueue *Q)
 {
-	
-	
+	while(Q->front)
+	{
+		Q->real = Q->front->next;
+		free(Q->front);
+		Q->front = Q->real;
+	}
+	return OK; 
 }
 
 Status ClearQueue(LinkQueue *Q)

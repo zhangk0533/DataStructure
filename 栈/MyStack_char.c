@@ -32,7 +32,7 @@ void LineEdit();
 
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
-int main(int argc, char *argv[]) {
+int main(void) {
 	MyStack S;
 	
 	return 0;
@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
 
 Status InitStack(MyStack *S)
 {
-	S->base = malloc(sizeof(char)*STACK_INIT_SIZE);
+	S->base = (char*)malloc(sizeof(char)*STACK_INIT_SIZE);
 	if(S->base==NULL)
 	{
 		exit(OVERFLOW);
@@ -95,7 +95,7 @@ Status Push(MyStack *S,char e)
 {
 	if(S->top-S->base>=S->stacksize)
 	{
-		S->base = realloc(S->base,(STACK_INIT_SIZE+STACKINCREMENT)*sizeof(char));
+		S->base = (char*)realloc(S->base,(STACK_INIT_SIZE+STACKINCREMENT)*sizeof(char));
 		if(S->base==NULL)
 		{
 			exit(OVERFLOW);
